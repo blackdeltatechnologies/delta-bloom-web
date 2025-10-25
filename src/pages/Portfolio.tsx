@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ExternalLink } from "lucide-react";
+import productLaunchImage from "@/assets/portfolio-product-launch.jpg";
 
 type FilterType = "all" | "cybersecurity" | "design" | "multimedia";
 
@@ -45,7 +46,7 @@ const projects = [
     title: "Product Launch Animation",
     category: "multimedia",
     description: "3D animation and motion graphics for new product launch across multiple channels.",
-    image: "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=800&h=600&fit=crop",
+    image: productLaunchImage,
     link: "#",
   },
 ];
