@@ -50,6 +50,7 @@ All colors MUST be HSL.
     
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-page: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
@@ -132,6 +133,28 @@ All colors MUST be HSL.
       linear-gradient(hsl(195 100% 55% / 0.05) 1px, transparent 1px),
       linear-gradient(90deg, hsl(195 100% 55% / 0.05) 1px, transparent 1px);
     background-size: 50px 50px;
+  }
+
+  .page-enter {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .page-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: var(--transition-page);
+  }
+
+  .page-exit {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .page-exit-active {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: var(--transition-page);
   }
 }
 
