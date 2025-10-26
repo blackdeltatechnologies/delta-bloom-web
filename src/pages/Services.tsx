@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Shield, Bug, Palette, Video, Calendar } from "lucide-react";
+import { Shield, Bug, Palette, Video, Calendar, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -39,6 +39,12 @@ const services = [
     description: "Professional video production, animation, and multimedia content that tells your story and engages your audience.",
     features: ["Video Production", "Animation", "Audio Engineering", "Content Strategy"],
   },
+  {
+    icon: Headphones,
+    title: "IT Support",
+    description: "Professional technical support services to keep your business running smoothly. Submit tickets for any IT issues and get expert assistance.",
+    features: ["24/7 Support", "Remote Assistance", "Hardware & Software Issues", "Network Troubleshooting"],
+  },
 ];
 
 const Services = () => {
@@ -50,6 +56,15 @@ const Services = () => {
     message: "",
   });
 
+  const [ticketData, setTicketData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    issue: "",
+    priority: "",
+    description: "",
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const message = `Hello! I'd like to book a service.\n\nName: ${formData.name}\nEmail: ${formData.email}\nService: ${formData.service}\nPreferred Date: ${formData.date}\n\nMessage: ${formData.message}`;
@@ -57,6 +72,15 @@ const Services = () => {
     window.open(whatsappUrl, '_blank');
     toast.success("Redirecting to WhatsApp...");
     setFormData({ name: "", email: "", service: "", date: "", message: "" });
+  };
+
+  const handleTicketSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const ticketMessage = `🎫 NEW IT SUPPORT TICKET\n\n👤 Name: ${ticketData.name}\n📧 Email: ${ticketData.email}\n📱 Phone: ${ticketData.phone}\n\n⚠️ Priority: ${ticketData.priority}\n🔧 Issue: ${ticketData.issue}\n\n📝 Description:\n${ticketData.description}`;
+    const whatsappUrl = `https://wa.me/255756377013?text=${encodeURIComponent(ticketMessage)}`;
+    window.open(whatsappUrl, '_blank');
+    toast.success("Support ticket created! Redirecting to WhatsApp...");
+    setTicketData({ name: "", email: "", phone: "", issue: "", priority: "", description: "" });
   };
 
   return (
@@ -96,6 +120,121 @@ const Services = () => {
                 </Card>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* IT Support Ticket Section */}
+      <section className="py-20 bg-card/30">
+        <div className="container px-4">
+          <div className="max-w-2xl mx-auto">
+            <div className="text-center mb-12">
+              <Headphones className="w-16 h-16 text-primary mx-auto mb-4 animate-glow" />
+              <h2 className="text-gradient mb-4">Submit IT Support Ticket</h2>
+              <p className="text-muted-foreground">
+                Having technical issues? Submit a support ticket and our team will assist you.
+              </p>
+            </div>
+
+            <Card className="p-8 bg-card/50 border-border card-shadow">
+              <form onSubmit={handleTicketSubmit} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="ticket-name">Full Name</Label>
+                    <Input
+                      id="ticket-name"
+                      placeholder="Your full name"
+                      value={ticketData.name}
+                      onChange={(e) => setTicketData({ ...ticketData, name: e.target.value })}
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="ticket-email">Email</Label>
+                    <Input
+                      id="ticket-email"
+                      type="email"
+                      placeholder="your.email@example.com"
+                      value={ticketData.email}
+                      onChange={(e) => setTicketData({ ...ticketData, email: e.target.value })}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="ticket-phone">Phone Number</Label>
+                  <Input
+                    id="ticket-phone"
+                    type="tel"
+                    placeholder="+255 XXX XXX XXX"
+                    value={ticketData.phone}
+                    onChange={(e) => setTicketData({ ...ticketData, phone: e.target.value })}
+                    required
+                  />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="ticket-issue">Issue Type</Label>
+                    <Select
+                      value={ticketData.issue}
+                      onValueChange={(value) => setTicketData({ ...ticketData, issue: value })}
+                      required
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select issue type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Hardware Issue">Hardware Issue</SelectItem>
+                        <SelectItem value="Software Issue">Software Issue</SelectItem>
+                        <SelectItem value="Network Problem">Network Problem</SelectItem>
+                        <SelectItem value="Email Issue">Email Issue</SelectItem>
+                        <SelectItem value="Password Reset">Password Reset</SelectItem>
+                        <SelectItem value="System Error">System Error</SelectItem>
+                        <SelectItem value="Other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="ticket-priority">Priority</Label>
+                    <Select
+                      value={ticketData.priority}
+                      onValueChange={(value) => setTicketData({ ...ticketData, priority: value })}
+                      required
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select priority" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Low">Low</SelectItem>
+                        <SelectItem value="Medium">Medium</SelectItem>
+                        <SelectItem value="High">High</SelectItem>
+                        <SelectItem value="Critical">Critical</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="ticket-description">Issue Description</Label>
+                  <Textarea
+                    id="ticket-description"
+                    placeholder="Please describe the issue in detail..."
+                    rows={6}
+                    value={ticketData.description}
+                    onChange={(e) => setTicketData({ ...ticketData, description: e.target.value })}
+                    required
+                  />
+                </div>
+
+                <Button type="submit" size="lg" variant="hero" className="w-full">
+                  Submit Support Ticket
+                </Button>
+              </form>
+            </Card>
           </div>
         </div>
       </section>
