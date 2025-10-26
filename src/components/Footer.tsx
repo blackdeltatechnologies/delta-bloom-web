@@ -52,17 +52,17 @@ export const Footer = () => {
               <li className="flex items-center gap-2 text-sm">
                 <MessageCircle className="w-4 h-4 text-primary" />
                 <a 
-                  href="https://wa.me/254756377013" 
+                  href="https://wa.me/255756377013" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-primary transition-smooth"
                 >
-                  +254 756 377 013
+                  +255 756 377 013
                 </a>
               </li>
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 text-primary" />
-                Kenya
+                Tanzania
               </li>
             </ul>
           </div>

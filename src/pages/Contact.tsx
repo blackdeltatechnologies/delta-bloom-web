@@ -17,7 +17,7 @@ const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const message = `Hello! I'm ${formData.name}.\n\nEmail: ${formData.email}\n\nMessage: ${formData.message}`;
-    const whatsappUrl = `https://wa.me/254756377013?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/255756377013?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
     toast.success("Redirecting to WhatsApp...");
     setFormData({ name: "", email: "", message: "" });
@@ -70,12 +70,12 @@ const Contact = () => {
                     <div>
                       <h3 className="font-semibold mb-1">WhatsApp</h3>
                       <a 
-                        href="https://wa.me/254756377013" 
+                        href="https://wa.me/255756377013" 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="text-muted-foreground hover:text-primary transition-smooth"
                       >
-                        +254 756 377 013
+                        +255 756 377 013
                       </a>
                     </div>
                   </div>
@@ -87,10 +87,10 @@ const Contact = () => {
                     <div>
                       <h3 className="font-semibold mb-1">Phone</h3>
                       <a 
-                        href="tel:+254756377013"
+                        href="tel:+255756377013"
                         className="text-muted-foreground hover:text-primary transition-smooth"
                       >
-                        +254 756 377 013
+                        +255 756 377 013
                       </a>
                     </div>
                   </div>
