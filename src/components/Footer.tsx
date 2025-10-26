@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Shield, Mail, Phone, MapPin } from "lucide-react";
+import { Shield, Mail, MessageCircle, MapPin } from "lucide-react";
 
 export const Footer = () => {
   return (
@@ -43,17 +43,26 @@ export const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4 text-foreground">Contact</h3>
             <ul className="space-y-3">
-              <li className="flex items-center gap-2 text-sm text-muted-foreground">
+              <li className="flex items-center gap-2 text-sm">
                 <Mail className="w-4 h-4 text-primary" />
-                info@blackdelta.tech
+                <a href="mailto:blackdeltatechnologies@gmail.com" className="text-muted-foreground hover:text-primary transition-smooth">
+                  blackdeltatechnologies@gmail.com
+                </a>
               </li>
-              <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Phone className="w-4 h-4 text-primary" />
-                +1 (555) 123-4567
+              <li className="flex items-center gap-2 text-sm">
+                <MessageCircle className="w-4 h-4 text-primary" />
+                <a 
+                  href="https://wa.me/254756377013" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-smooth"
+                >
+                  +254 756 377 013
+                </a>
               </li>
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 text-primary" />
-                San Francisco, CA
+                Kenya
               </li>
             </ul>
           </div>

@@ -52,7 +52,10 @@ const Services = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Booking request submitted! We'll contact you soon.");
+    const message = `Hello! I'd like to book a service.\n\nName: ${formData.name}\nEmail: ${formData.email}\nService: ${formData.service}\nPreferred Date: ${formData.date}\n\nMessage: ${formData.message}`;
+    const whatsappUrl = `https://wa.me/254756377013?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    toast.success("Redirecting to WhatsApp...");
     setFormData({ name: "", email: "", service: "", date: "", message: "" });
   };
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -16,7 +16,10 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent! We'll get back to you soon.");
+    const message = `Hello! I'm ${formData.name}.\n\nEmail: ${formData.email}\n\nMessage: ${formData.message}`;
+    const whatsappUrl = `https://wa.me/254756377013?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    toast.success("Redirecting to WhatsApp...");
     setFormData({ name: "", email: "", message: "" });
   };
 
@@ -54,8 +57,26 @@ const Contact = () => {
                     <Mail className="w-6 h-6 text-primary group-hover:animate-glow flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold mb-1">Email</h3>
-                      <p className="text-muted-foreground">info@blackdelta.tech</p>
-                      <p className="text-muted-foreground">support@blackdelta.tech</p>
+                      <a href="mailto:blackdeltatechnologies@gmail.com" className="text-muted-foreground hover:text-primary transition-smooth">
+                        blackdeltatechnologies@gmail.com
+                      </a>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6 bg-card/50 border-border card-shadow hover:border-primary transition-smooth group">
+                  <div className="flex items-start gap-4">
+                    <MessageCircle className="w-6 h-6 text-primary group-hover:animate-glow flex-shrink-0" />
+                    <div>
+                      <h3 className="font-semibold mb-1">WhatsApp</h3>
+                      <a 
+                        href="https://wa.me/254756377013" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-primary transition-smooth"
+                      >
+                        +254 756 377 013
+                      </a>
                     </div>
                   </div>
                 </Card>
@@ -65,8 +86,12 @@ const Contact = () => {
                     <Phone className="w-6 h-6 text-primary group-hover:animate-glow flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold mb-1">Phone</h3>
-                      <p className="text-muted-foreground">Main: +1 (555) 123-4567</p>
-                      <p className="text-muted-foreground">Support: +1 (555) 123-4568</p>
+                      <a 
+                        href="tel:+254756377013"
+                        className="text-muted-foreground hover:text-primary transition-smooth"
+                      >
+                        +254 756 377 013
+                      </a>
                     </div>
                   </div>
                 </Card>
