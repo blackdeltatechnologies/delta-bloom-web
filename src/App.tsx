@@ -7,6 +7,7 @@ import { AnimatePresence } from "framer-motion";
 import { Navigation } from "./components/Navigation";
 import { Footer } from "./components/Footer";
 import { PageTransition } from "./components/PageTransition";
+import { ChatBot } from "./components/ChatBot";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -45,6 +46,7 @@ const App = () => (
             <AnimatedRoutes />
           </div>
           <Footer />
+          <ChatBot />
         </div>
       </BrowserRouter>
     </TooltipProvider>
