@@ -1,22 +1,54 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Zap, Users } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/hero-tech.jpg";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import { useRef } from "react";
+import cyberShield from "@/assets/cyber-shield.jpg";
+import cyberDatacenter from "@/assets/cyber-datacenter.jpg";
+import cyberWorkspace from "@/assets/cyber-workspace.jpg";
+import cyberEncryption from "@/assets/cyber-encryption.jpg";
+import cyberHologram from "@/assets/cyber-hologram.jpg";
+
+const carouselImages = [
+  { src: cyberShield, alt: "Digital Security Shield" },
+  { src: cyberDatacenter, alt: "Secure Data Center" },
+  { src: cyberWorkspace, alt: "Cybersecurity Operations" },
+  { src: cyberEncryption, alt: "Data Encryption Network" },
+  { src: cyberHologram, alt: "Holographic Security Interface" },
+];
 
 const Home = () => {
+  const plugin = useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: false })
+  );
   return (
     <main>
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background */}
+        {/* Background Carousel */}
         <div className="absolute inset-0 z-0">
-          <img 
-            src={heroImage} 
-            alt="Technology Background" 
-            className="w-full h-full object-cover opacity-30"
-          />
-          <div className="absolute inset-0 bg-gradient-hero" />
-          <div className="absolute inset-0 grid-pattern opacity-50" />
+          <Carousel
+            opts={{ loop: true }}
+            plugins={[plugin.current]}
+            className="w-full h-full"
+          >
+            <CarouselContent className="h-screen">
+              {carouselImages.map((image, index) => (
+                <CarouselItem key={index} className="h-screen">
+                  <div className="relative w-full h-full">
+                    <img 
+                      src={image.src} 
+                      alt={image.alt}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/80" />
+                    <div className="absolute inset-0 grid-pattern opacity-30" />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
         </div>
 
         {/* Content */}
