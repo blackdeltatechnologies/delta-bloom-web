@@ -101,9 +101,7 @@ const Contact = () => {
                     <MapPin className="w-6 h-6 text-primary group-hover:animate-glow flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold mb-1">Office</h3>
-                      <p className="text-muted-foreground">123 Tech Boulevard</p>
-                      <p className="text-muted-foreground">San Francisco, CA 94105</p>
-                      <p className="text-muted-foreground">United States</p>
+                      <p className="text-muted-foreground">Arusha, Tanzania</p>
                     </div>
                   </div>
                 </Card>

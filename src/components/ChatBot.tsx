@@ -15,7 +15,7 @@ export const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Welcome! I am Black Delta Technologies Assistant. How can I help you today?",
+      content: "Welcome! I am BLACK DELTA TECHNOLOGIES Assistant. How can I help you today?",
     },
   ]);
   const [input, setInput] = useState("");

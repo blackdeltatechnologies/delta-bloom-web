@@ -10,7 +10,7 @@ export const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Shield className="w-6 h-6 text-primary animate-glow" />
-              <span className="text-lg font-bold text-gradient">BLACKDELTA</span>
+              <span className="text-lg font-bold text-gradient">BLACK DELTA TECHNOLOGIES</span>
             </div>
             <p className="text-sm text-muted-foreground">
               Empowering businesses with cutting-edge cybersecurity, design, and multimedia solutions.
@@ -62,14 +62,14 @@ export const Footer = () => {
               </li>
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 text-primary" />
-                Tanzania
+                Arusha
               </li>
             </ul>
           </div>
         </div>
 
         <div className="mt-8 pt-8 border-t border-border/50 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} BLACKDELTA TECHNOLOGIES. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} BLACK DELTA TECHNOLOGIES. All rights reserved.</p>
         </div>
       </div>
     </footer>
