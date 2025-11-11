@@ -21,12 +21,31 @@ export const ChatBot = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const hasSpokenWelcome = useRef(false);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages]);
+
+  // Voice welcome message when chat opens
+  useEffect(() => {
+    if (isOpen && !hasSpokenWelcome.current && 'speechSynthesis' in window) {
+      hasSpokenWelcome.current = true;
+      
+      const welcomeText = "Welcome! I am BLACK DELTA TECHNOLOGIES Assistant. How can I help you today?";
+      const utterance = new SpeechSynthesisUtterance(welcomeText);
+      utterance.rate = 0.9;
+      utterance.pitch = 1;
+      utterance.volume = 0.8;
+      
+      // Small delay to ensure chat is visible
+      setTimeout(() => {
+        window.speechSynthesis.speak(utterance);
+      }, 300);
+    }
+  }, [isOpen]);
 
   const streamChat = async (userMessage: string) => {
     const newMessages = [...messages, { role: "user" as const, content: userMessage }];
