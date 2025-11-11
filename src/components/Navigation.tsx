@@ -24,7 +24,8 @@ export const Navigation = () => {
           <Link to="/" className="flex items-center gap-2 group">
             <Shield className="w-8 h-8 text-primary animate-glow" />
             <span className="text-xl font-bold text-gradient">
-              BLACK DELTA TECHNOLOGIES
+              <span className="hidden md:inline">BLACK DELTA TECHNOLOGIES</span>
+              <span className="inline md:hidden">BDT</span>
             </span>
           </Link>
 
