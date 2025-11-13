@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageCircle, X, Send, Loader2, Mic, MicOff } from "lucide-react";
+import { MessageCircle, X, Send, Loader2, Mic, MicOff, Volume2, VolumeX } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Message {
@@ -21,6 +21,7 @@ export const ChatBot = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
   const hasSpokenWelcome = useRef(false);
   const recognitionRef = useRef<any>(null);
@@ -116,6 +117,11 @@ export const ChatBot = () => {
         }
       }
 
+      // Speak the complete response
+      if (assistantMessage) {
+        speakText(assistantMessage);
+      }
+
       setIsLoading(false);
     } catch (error) {
       console.error("Chat error:", error);
@@ -174,6 +180,20 @@ export const ChatBot = () => {
     }
   };
 
+  const speakText = (text: string) => {
+    if (voiceEnabled && 'speechSynthesis' in window && text) {
+      // Cancel any ongoing speech
+      window.speechSynthesis.cancel();
+      
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.9;
+      utterance.pitch = 1;
+      utterance.volume = 0.8;
+      
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
   return (
     <>
       <AnimatePresence>
@@ -190,14 +210,30 @@ export const ChatBot = () => {
                 <MessageCircle className="h-5 w-5" />
                 <h3 className="font-semibold">Chat Assistant</h3>
               </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsOpen(false)}
-                className="hover:bg-primary-foreground/10"
-              >
-                <X className="h-5 w-5" />
-              </Button>
+              <div className="flex items-center gap-1">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => {
+                    setVoiceEnabled(!voiceEnabled);
+                    if (voiceEnabled) {
+                      window.speechSynthesis.cancel();
+                    }
+                  }}
+                  className="hover:bg-primary-foreground/10"
+                  title={voiceEnabled ? "Disable voice" : "Enable voice"}
+                >
+                  {voiceEnabled ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsOpen(false)}
+                  className="hover:bg-primary-foreground/10"
+                >
+                  <X className="h-5 w-5" />
+                </Button>
+              </div>
             </div>
 
             <ScrollArea className="flex-1 p-4" ref={scrollRef}>
