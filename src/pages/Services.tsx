@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import jsPDF from "jspdf";
 import {
   Select,
   SelectContent,
@@ -74,12 +75,115 @@ const Services = () => {
     setFormData({ name: "", email: "", service: "", date: "", message: "" });
   };
 
+  const generateTicketPDF = () => {
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.width;
+    const margin = 20;
+    let yPosition = 20;
+
+    // Large Title
+    doc.setFontSize(28);
+    doc.setFont("helvetica", "bold");
+    doc.text("DARIUS DELTA", pageWidth / 2, yPosition, { align: "center" });
+    
+    yPosition += 10;
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "normal");
+    doc.text("CEO - Black Delta Technologies", pageWidth / 2, yPosition, { align: "center" });
+    
+    yPosition += 15;
+    doc.setDrawColor(0, 0, 0);
+    doc.line(margin, yPosition, pageWidth - margin, yPosition);
+    
+    // IT Support Ticket Details
+    yPosition += 15;
+    doc.setFontSize(18);
+    doc.setFont("helvetica", "bold");
+    doc.text("IT SUPPORT TICKET", margin, yPosition);
+    
+    yPosition += 12;
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "normal");
+    
+    // Ticket Date
+    doc.text(`Date: ${new Date().toLocaleDateString()}`, margin, yPosition);
+    yPosition += 8;
+    doc.text(`Time: ${new Date().toLocaleTimeString()}`, margin, yPosition);
+    
+    yPosition += 15;
+    doc.setFont("helvetica", "bold");
+    doc.text("Customer Information:", margin, yPosition);
+    
+    yPosition += 8;
+    doc.setFont("helvetica", "normal");
+    doc.text(`Name: ${ticketData.name}`, margin, yPosition);
+    yPosition += 7;
+    doc.text(`Email: ${ticketData.email}`, margin, yPosition);
+    yPosition += 7;
+    doc.text(`Phone: ${ticketData.phone}`, margin, yPosition);
+    
+    yPosition += 12;
+    doc.setFont("helvetica", "bold");
+    doc.text("Issue Details:", margin, yPosition);
+    
+    yPosition += 8;
+    doc.setFont("helvetica", "normal");
+    doc.text(`Priority: ${ticketData.priority}`, margin, yPosition);
+    yPosition += 7;
+    doc.text(`Issue Type: ${ticketData.issue}`, margin, yPosition);
+    
+    yPosition += 12;
+    doc.setFont("helvetica", "bold");
+    doc.text("Problem Description:", margin, yPosition);
+    
+    yPosition += 8;
+    doc.setFont("helvetica", "normal");
+    const splitDescription = doc.splitTextToSize(ticketData.description, pageWidth - 2 * margin);
+    doc.text(splitDescription, margin, yPosition);
+    
+    yPosition += splitDescription.length * 7 + 15;
+    
+    // Contact Information Box
+    doc.setDrawColor(200, 200, 200);
+    doc.setFillColor(245, 245, 245);
+    doc.rect(margin, yPosition, pageWidth - 2 * margin, 35, "FD");
+    
+    yPosition += 10;
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.text("Need Immediate Assistance?", margin + 5, yPosition);
+    
+    yPosition += 8;
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "normal");
+    doc.text("Contact CEO directly for urgent matters:", margin + 5, yPosition);
+    
+    yPosition += 7;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.text("Phone: +255 756 377 013", margin + 5, yPosition);
+    
+    yPosition += 8;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.text("Available for critical support issues", margin + 5, yPosition);
+    
+    // Save the PDF
+    doc.save(`IT-Support-Ticket-${ticketData.name.replace(/\s+/g, "-")}-${Date.now()}.pdf`);
+  };
+
   const handleTicketSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Generate and download PDF
+    generateTicketPDF();
+    
+    // Send to WhatsApp
     const ticketMessage = `🎫 NEW IT SUPPORT TICKET\n\n👤 Name: ${ticketData.name}\n📧 Email: ${ticketData.email}\n📱 Phone: ${ticketData.phone}\n\n⚠️ Priority: ${ticketData.priority}\n🔧 Issue: ${ticketData.issue}\n\n📝 Description:\n${ticketData.description}`;
     const whatsappUrl = `https://wa.me/255756377013?text=${encodeURIComponent(ticketMessage)}`;
     window.open(whatsappUrl, '_blank');
-    toast.success("Support ticket created! Redirecting to WhatsApp...");
+    
+    toast.success("PDF downloaded! Redirecting to WhatsApp...");
     setTicketData({ name: "", email: "", phone: "", issue: "", priority: "", description: "" });
   };
 
