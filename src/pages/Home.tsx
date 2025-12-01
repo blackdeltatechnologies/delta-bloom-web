@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useRef } from "react";
+import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
 import cyberShield from "@/assets/cyber-shield.jpg";
 import cyberDatacenter from "@/assets/cyber-datacenter.jpg";
 import cyberWorkspace from "@/assets/cyber-workspace.jpg";
@@ -87,45 +88,53 @@ const Home = () => {
       {/* Features Section */}
       <section className="py-20 bg-card/30">
         <div className="container px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-gradient mb-4">Why Choose BLACKDELTA?</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              We combine expertise, innovation, and dedication to deliver exceptional results.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="p-6 rounded-lg bg-card/50 border border-border card-shadow hover:border-primary transition-smooth group">
-              <Shield className="w-12 h-12 text-primary mb-4 group-hover:animate-glow" />
-              <h3 className="text-2xl font-bold mb-3">Secure Solutions</h3>
-              <p className="text-muted-foreground">
-                Enterprise-grade cybersecurity protecting your digital assets with advanced threat detection and prevention.
+          <ScrollReveal direction="up">
+            <div className="text-center mb-16">
+              <h2 className="text-gradient mb-4">Why Choose BLACKDELTA?</h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                We combine expertise, innovation, and dedication to deliver exceptional results.
               </p>
             </div>
+          </ScrollReveal>
 
-            <div className="p-6 rounded-lg bg-card/50 border border-border card-shadow hover:border-primary transition-smooth group">
-              <Zap className="w-12 h-12 text-primary mb-4 group-hover:animate-glow" />
-              <h3 className="text-2xl font-bold mb-3">Fast Delivery</h3>
-              <p className="text-muted-foreground">
-                Rapid deployment and implementation without compromising quality or security standards.
-              </p>
-            </div>
+          <StaggerContainer className="grid md:grid-cols-3 gap-8">
+            <StaggerItem>
+              <div className="p-6 rounded-lg bg-card/50 border border-border card-shadow hover:border-primary transition-smooth group h-full">
+                <Shield className="w-12 h-12 text-primary mb-4 group-hover:animate-glow" />
+                <h3 className="text-2xl font-bold mb-3">Secure Solutions</h3>
+                <p className="text-muted-foreground">
+                  Enterprise-grade cybersecurity protecting your digital assets with advanced threat detection and prevention.
+                </p>
+              </div>
+            </StaggerItem>
 
-            <div className="p-6 rounded-lg bg-card/50 border border-border card-shadow hover:border-primary transition-smooth group">
-              <Users className="w-12 h-12 text-primary mb-4 group-hover:animate-glow" />
-              <h3 className="text-2xl font-bold mb-3">Expert Team</h3>
-              <p className="text-muted-foreground">
-                Seasoned professionals with years of experience in cybersecurity, design, and multimedia production.
-              </p>
-            </div>
-          </div>
+            <StaggerItem>
+              <div className="p-6 rounded-lg bg-card/50 border border-border card-shadow hover:border-primary transition-smooth group h-full">
+                <Zap className="w-12 h-12 text-primary mb-4 group-hover:animate-glow" />
+                <h3 className="text-2xl font-bold mb-3">Fast Delivery</h3>
+                <p className="text-muted-foreground">
+                  Rapid deployment and implementation without compromising quality or security standards.
+                </p>
+              </div>
+            </StaggerItem>
+
+            <StaggerItem>
+              <div className="p-6 rounded-lg bg-card/50 border border-border card-shadow hover:border-primary transition-smooth group h-full">
+                <Users className="w-12 h-12 text-primary mb-4 group-hover:animate-glow" />
+                <h3 className="text-2xl font-bold mb-3">Expert Team</h3>
+                <p className="text-muted-foreground">
+                  Seasoned professionals with years of experience in cybersecurity, design, and multimedia production.
+                </p>
+              </div>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-primary opacity-10" />
-        <div className="container relative z-10 px-4 text-center">
+        <ScrollReveal direction="scale" className="container relative z-10 px-4 text-center">
           <h2 className="text-gradient mb-6">Ready to Transform Your Business?</h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Let's discuss how we can help you achieve your goals with our comprehensive technology solutions.
@@ -136,7 +145,7 @@ const Home = () => {
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
-        </div>
+        </ScrollReveal>
       </section>
     </main>
   );

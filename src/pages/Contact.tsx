@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -43,80 +44,92 @@ const Contact = () => {
         <div className="container px-4">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Information */}
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-3xl font-bold mb-6">Contact Information</h2>
-                <p className="text-muted-foreground mb-8">
-                  We're here to help and answer any questions you might have. We look forward to hearing from you.
-                </p>
-              </div>
-
-              <div className="space-y-6">
-                <Card className="p-6 bg-card/50 border-border card-shadow hover:border-primary transition-smooth group">
-                  <div className="flex items-start gap-4">
-                    <Mail className="w-6 h-6 text-primary group-hover:animate-glow flex-shrink-0" />
-                    <div>
-                      <h3 className="font-semibold mb-1">Email</h3>
-                      <a href="mailto:blackdeltatechnologies@gmail.com" className="text-muted-foreground hover:text-primary transition-smooth">
-                        blackdeltatechnologies@gmail.com
-                      </a>
-                    </div>
-                  </div>
-                </Card>
-
-                <Card className="p-6 bg-card/50 border-border card-shadow hover:border-primary transition-smooth group">
-                  <div className="flex items-start gap-4">
-                    <MessageCircle className="w-6 h-6 text-primary group-hover:animate-glow flex-shrink-0" />
-                    <div>
-                      <h3 className="font-semibold mb-1">WhatsApp</h3>
-                      <a 
-                        href="https://wa.me/255756377013" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-primary transition-smooth"
-                      >
-                        +255 756 377 013
-                      </a>
-                    </div>
-                  </div>
-                </Card>
-
-                <Card className="p-6 bg-card/50 border-border card-shadow hover:border-primary transition-smooth group">
-                  <div className="flex items-start gap-4">
-                    <Phone className="w-6 h-6 text-primary group-hover:animate-glow flex-shrink-0" />
-                    <div>
-                      <h3 className="font-semibold mb-1">Phone</h3>
-                      <a 
-                        href="tel:+255756377013"
-                        className="text-muted-foreground hover:text-primary transition-smooth"
-                      >
-                        +255 756 377 013
-                      </a>
-                    </div>
-                  </div>
-                </Card>
-
-                <Card className="p-6 bg-card/50 border-border card-shadow hover:border-primary transition-smooth group">
-                  <div className="flex items-start gap-4">
-                    <MapPin className="w-6 h-6 text-primary group-hover:animate-glow flex-shrink-0" />
-                    <div>
-                      <h3 className="font-semibold mb-1">Office</h3>
-                      <p className="text-muted-foreground">Arusha, Tanzania</p>
-                    </div>
-                  </div>
-                </Card>
-              </div>
-
-              {/* Map Placeholder */}
-              <Card className="p-6 bg-card/50 border-border card-shadow">
-                <div className="aspect-video bg-muted/20 rounded-lg flex items-center justify-center border border-border">
-                  <MapPin className="w-16 h-16 text-primary animate-glow" />
+            <ScrollReveal direction="left">
+              <div className="space-y-8">
+                <div>
+                  <h2 className="text-3xl font-bold mb-6">Contact Information</h2>
+                  <p className="text-muted-foreground mb-8">
+                    We're here to help and answer any questions you might have. We look forward to hearing from you.
+                  </p>
                 </div>
-              </Card>
-            </div>
+
+                <StaggerContainer className="space-y-6">
+                  <StaggerItem>
+                    <Card className="p-6 bg-card/50 border-border card-shadow hover:border-primary transition-smooth group">
+                      <div className="flex items-start gap-4">
+                        <Mail className="w-6 h-6 text-primary group-hover:animate-glow flex-shrink-0" />
+                        <div>
+                          <h3 className="font-semibold mb-1">Email</h3>
+                          <a href="mailto:blackdeltatechnologies@gmail.com" className="text-muted-foreground hover:text-primary transition-smooth">
+                            blackdeltatechnologies@gmail.com
+                          </a>
+                        </div>
+                      </div>
+                    </Card>
+                  </StaggerItem>
+
+                  <StaggerItem>
+                    <Card className="p-6 bg-card/50 border-border card-shadow hover:border-primary transition-smooth group">
+                      <div className="flex items-start gap-4">
+                        <MessageCircle className="w-6 h-6 text-primary group-hover:animate-glow flex-shrink-0" />
+                        <div>
+                          <h3 className="font-semibold mb-1">WhatsApp</h3>
+                          <a 
+                            href="https://wa.me/255756377013" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-muted-foreground hover:text-primary transition-smooth"
+                          >
+                            +255 756 377 013
+                          </a>
+                        </div>
+                      </div>
+                    </Card>
+                  </StaggerItem>
+
+                  <StaggerItem>
+                    <Card className="p-6 bg-card/50 border-border card-shadow hover:border-primary transition-smooth group">
+                      <div className="flex items-start gap-4">
+                        <Phone className="w-6 h-6 text-primary group-hover:animate-glow flex-shrink-0" />
+                        <div>
+                          <h3 className="font-semibold mb-1">Phone</h3>
+                          <a 
+                            href="tel:+255756377013"
+                            className="text-muted-foreground hover:text-primary transition-smooth"
+                          >
+                            +255 756 377 013
+                          </a>
+                        </div>
+                      </div>
+                    </Card>
+                  </StaggerItem>
+
+                  <StaggerItem>
+                    <Card className="p-6 bg-card/50 border-border card-shadow hover:border-primary transition-smooth group">
+                      <div className="flex items-start gap-4">
+                        <MapPin className="w-6 h-6 text-primary group-hover:animate-glow flex-shrink-0" />
+                        <div>
+                          <h3 className="font-semibold mb-1">Office</h3>
+                          <p className="text-muted-foreground">Arusha, Tanzania</p>
+                        </div>
+                      </div>
+                    </Card>
+                  </StaggerItem>
+                </StaggerContainer>
+
+                {/* Map Placeholder */}
+                <ScrollReveal direction="scale">
+                  <Card className="p-6 bg-card/50 border-border card-shadow">
+                    <div className="aspect-video bg-muted/20 rounded-lg flex items-center justify-center border border-border">
+                      <MapPin className="w-16 h-16 text-primary animate-glow" />
+                    </div>
+                  </Card>
+                </ScrollReveal>
+              </div>
+            </ScrollReveal>
 
             {/* Contact Form */}
-            <div>
+            <ScrollReveal direction="right">
               <Card className="p-8 bg-card/50 border-border card-shadow">
                 <h2 className="text-3xl font-bold mb-6">Send a Message</h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -161,7 +174,7 @@ const Contact = () => {
                   </Button>
                 </form>
               </Card>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
