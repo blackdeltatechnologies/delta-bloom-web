@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import jsPDF from "jspdf";
+import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
 import {
   Select,
   SelectContent,
@@ -205,26 +206,28 @@ const Services = () => {
       {/* Services Grid */}
       <section className="py-20 bg-card/30">
         <div className="container px-4">
-          <div className="grid md:grid-cols-2 gap-8">
+          <StaggerContainer staggerDelay={0.15} className="grid md:grid-cols-2 gap-8">
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <Card key={index} className="p-8 bg-card/50 border-border hover:border-primary transition-smooth card-shadow group">
-                  <Icon className="w-16 h-16 text-primary mb-6 group-hover:animate-glow" />
-                  <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-                  <p className="text-muted-foreground mb-6">{service.description}</p>
-                  <ul className="space-y-2">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center gap-2 text-sm">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                        <span className="text-muted-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
+                <StaggerItem key={index}>
+                  <Card className="p-8 bg-card/50 border-border hover:border-primary transition-smooth card-shadow group h-full">
+                    <Icon className="w-16 h-16 text-primary mb-6 group-hover:animate-glow" />
+                    <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
+                    <p className="text-muted-foreground mb-6">{service.description}</p>
+                    <ul className="space-y-2">
+                      {service.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-center gap-2 text-sm">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                          <span className="text-muted-foreground">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </Card>
+                </StaggerItem>
               );
             })}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
@@ -232,16 +235,19 @@ const Services = () => {
       <section className="py-20 bg-card/30">
         <div className="container px-4">
           <div className="max-w-2xl mx-auto">
-            <div className="text-center mb-12">
-              <Headphones className="w-16 h-16 text-primary mx-auto mb-4 animate-glow" />
-              <h2 className="text-gradient mb-4">Submit IT Support Ticket</h2>
-              <p className="text-muted-foreground">
-                Having technical issues? Submit a support ticket and our team will assist you.
-              </p>
-            </div>
+            <ScrollReveal direction="up">
+              <div className="text-center mb-12">
+                <Headphones className="w-16 h-16 text-primary mx-auto mb-4 animate-glow" />
+                <h2 className="text-gradient mb-4">Submit IT Support Ticket</h2>
+                <p className="text-muted-foreground">
+                  Having technical issues? Submit a support ticket and our team will assist you.
+                </p>
+              </div>
+            </ScrollReveal>
 
-            <Card className="p-8 bg-card/50 border-border card-shadow">
-              <form onSubmit={handleTicketSubmit} className="space-y-6">
+            <ScrollReveal direction="scale">
+              <Card className="p-8 bg-card/50 border-border card-shadow">
+                <form onSubmit={handleTicketSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="ticket-name">Full Name</Label>
@@ -337,8 +343,9 @@ const Services = () => {
                 <Button type="submit" size="lg" variant="hero" className="w-full">
                   Submit Support Ticket
                 </Button>
-              </form>
-            </Card>
+                </form>
+              </Card>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -347,16 +354,19 @@ const Services = () => {
       <section className="py-20">
         <div className="container px-4">
           <div className="max-w-2xl mx-auto">
-            <div className="text-center mb-12">
-              <Calendar className="w-16 h-16 text-primary mx-auto mb-4 animate-glow" />
-              <h2 className="text-gradient mb-4">Book a Service</h2>
-              <p className="text-muted-foreground">
-                Schedule a consultation with our experts to discuss your project.
-              </p>
-            </div>
+            <ScrollReveal direction="up">
+              <div className="text-center mb-12">
+                <Calendar className="w-16 h-16 text-primary mx-auto mb-4 animate-glow" />
+                <h2 className="text-gradient mb-4">Book a Service</h2>
+                <p className="text-muted-foreground">
+                  Schedule a consultation with our experts to discuss your project.
+                </p>
+              </div>
+            </ScrollReveal>
 
-            <Card className="p-8 bg-card/50 border-border card-shadow">
-              <form onSubmit={handleSubmit} className="space-y-6">
+            <ScrollReveal direction="scale">
+              <Card className="p-8 bg-card/50 border-border card-shadow">
+                <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>
                   <Input
@@ -426,8 +436,9 @@ const Services = () => {
                 <Button type="submit" size="lg" variant="hero" className="w-full">
                   Submit Booking Request
                 </Button>
-              </form>
-            </Card>
+                </form>
+              </Card>
+            </ScrollReveal>
           </div>
         </div>
       </section>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
 import productLaunchImage from "@/assets/portfolio-product-launch.jpg";
 
 type FilterType = "all" | "cybersecurity" | "design" | "multimedia";
@@ -159,32 +160,33 @@ const Portfolio = () => {
       {/* Portfolio Grid */}
       <section className="py-20">
         <div className="container px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <StaggerContainer staggerDelay={0.1} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project, index) => (
-              <Card 
-                key={index} 
-                className="overflow-hidden bg-card/50 border-border hover:border-primary transition-smooth card-shadow group"
-              >
-                <div className="relative overflow-hidden aspect-video">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-20 transition-opacity" />
-                </div>
-                <div className="p-6 space-y-3">
-                  <h3 className="text-xl font-bold">{project.title}</h3>
-                  <p className="text-sm text-muted-foreground">{project.description}</p>
-                  <div className="pt-2">
-                    <span className="text-xs uppercase tracking-wide text-primary">
-                      {project.category}
-                    </span>
+              <StaggerItem key={index}>
+                <Card 
+                  className="overflow-hidden bg-card/50 border-border hover:border-primary transition-smooth card-shadow group h-full"
+                >
+                  <div className="relative overflow-hidden aspect-video">
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-20 transition-opacity" />
                   </div>
-                </div>
-              </Card>
+                  <div className="p-6 space-y-3">
+                    <h3 className="text-xl font-bold">{project.title}</h3>
+                    <p className="text-sm text-muted-foreground">{project.description}</p>
+                    <div className="pt-2">
+                      <span className="text-xs uppercase tracking-wide text-primary">
+                        {project.category}
+                      </span>
+                    </div>
+                  </div>
+                </Card>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
     </main>
