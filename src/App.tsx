@@ -8,10 +8,14 @@ import { Navigation } from "./components/Navigation";
 import { Footer } from "./components/Footer";
 import { PageTransition } from "./components/PageTransition";
 import { ChatBot } from "./components/ChatBot";
+import { AuthProvider } from "./hooks/useAuth";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
-import BackupCenter from "./pages/BackupCenter";
+import SkyBackup from "./pages/SkyBackup";
+import SkyBackupAuth from "./pages/SkyBackupAuth";
+import SkyBackupDashboard from "./pages/SkyBackupDashboard";
+import SkyBackupAdmin from "./pages/SkyBackupAdmin";
 import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
@@ -27,7 +31,10 @@ const AnimatedRoutes = () => {
         <Route path="/" element={<PageTransition><Home /></PageTransition>} />
         <Route path="/about" element={<PageTransition><About /></PageTransition>} />
         <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
-        <Route path="/backup" element={<PageTransition><BackupCenter /></PageTransition>} />
+        <Route path="/skybackup" element={<PageTransition><SkyBackup /></PageTransition>} />
+        <Route path="/skybackup/auth" element={<PageTransition><SkyBackupAuth /></PageTransition>} />
+        <Route path="/skybackup/dashboard" element={<PageTransition><SkyBackupDashboard /></PageTransition>} />
+        <Route path="/skybackup/admin" element={<PageTransition><SkyBackupAdmin /></PageTransition>} />
         <Route path="/portfolio" element={<PageTransition><Portfolio /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
@@ -42,14 +49,16 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="min-h-screen flex flex-col">
-          <Navigation />
-          <div className="flex-1">
-            <AnimatedRoutes />
+        <AuthProvider>
+          <div className="min-h-screen flex flex-col">
+            <Navigation />
+            <div className="flex-1">
+              <AnimatedRoutes />
+            </div>
+            <Footer />
+            <ChatBot />
           </div>
-          <Footer />
-          <ChatBot />
-        </div>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
