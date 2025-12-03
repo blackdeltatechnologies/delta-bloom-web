@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Shield, Bug, Palette, Video, Calendar, Headphones } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Shield, Bug, Palette, Video, Calendar, Headphones, Cloud, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -46,6 +47,31 @@ const services = [
     title: "IT Support",
     description: "Professional technical support services to keep your business running smoothly. Submit tickets for any IT issues and get expert assistance.",
     features: ["24/7 Support", "Remote Assistance", "Hardware & Software Issues", "Network Troubleshooting"],
+  },
+];
+
+const skybackupPlans = [
+  {
+    name: "Basic",
+    storage: "50 GB",
+    price: "TSh 15,000/mo",
+    features: ["50 GB Cloud Storage", "File Backup", "Access Anywhere", "Basic Support"],
+    plan: "basic",
+  },
+  {
+    name: "Professional",
+    storage: "500 GB",
+    price: "TSh 45,000/mo",
+    features: ["500 GB Cloud Storage", "Priority Backup", "Access Anywhere", "Priority Support", "File Sharing"],
+    plan: "professional",
+    popular: true,
+  },
+  {
+    name: "Enterprise",
+    storage: "2 TB",
+    price: "TSh 120,000/mo",
+    features: ["2 TB Cloud Storage", "Instant Backup", "Access Anywhere", "24/7 Support", "Team Sharing", "Advanced Security"],
+    plan: "enterprise",
   },
 ];
 
@@ -228,6 +254,62 @@ const Services = () => {
               );
             })}
           </StaggerContainer>
+        </div>
+      </section>
+
+      {/* SkyBackup Section */}
+      <section className="py-20">
+        <div className="container px-4">
+          <ScrollReveal direction="up">
+            <div className="text-center mb-12">
+              <Cloud className="w-16 h-16 text-primary mx-auto mb-4 animate-glow" />
+              <h2 className="text-gradient mb-4">SkyBackup</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Secure cloud backup for all your files, music, videos, and documents. Access your data anywhere, anytime.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <StaggerContainer staggerDelay={0.1} className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {skybackupPlans.map((plan, index) => (
+              <StaggerItem key={index}>
+                <Card className={`p-6 bg-card/50 border-border hover:border-primary transition-smooth card-shadow relative ${plan.popular ? 'ring-2 ring-primary' : ''}`}>
+                  {plan.popular && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-semibold">
+                      Most Popular
+                    </div>
+                  )}
+                  <div className="text-center mb-6">
+                    <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
+                    <p className="text-3xl font-bold text-primary">{plan.storage}</p>
+                    <p className="text-muted-foreground">{plan.price}</p>
+                  </div>
+                  <ul className="space-y-3 mb-6">
+                    {plan.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-center gap-2 text-sm">
+                        <Check className="w-4 h-4 text-primary flex-shrink-0" />
+                        <span className="text-muted-foreground">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to={`/skybackup/auth?plan=${plan.plan}`}>
+                    <Button variant={plan.popular ? "default" : "outline"} className="w-full">
+                      Get Started
+                    </Button>
+                  </Link>
+                </Card>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+
+          <ScrollReveal direction="up" className="text-center mt-8">
+            <p className="text-sm text-muted-foreground">
+              Already have an account?{" "}
+              <Link to="/skybackup/auth?mode=login" className="text-primary hover:underline">
+                Sign in to your dashboard
+              </Link>
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
