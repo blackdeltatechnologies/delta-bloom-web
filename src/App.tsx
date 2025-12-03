@@ -12,7 +12,6 @@ import { AuthProvider } from "./hooks/useAuth";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
-import SkyBackup from "./pages/SkyBackup";
 import SkyBackupAuth from "./pages/SkyBackupAuth";
 import SkyBackupDashboard from "./pages/SkyBackupDashboard";
 import SkyBackupAdmin from "./pages/SkyBackupAdmin";
@@ -31,7 +30,6 @@ const AnimatedRoutes = () => {
         <Route path="/" element={<PageTransition><Home /></PageTransition>} />
         <Route path="/about" element={<PageTransition><About /></PageTransition>} />
         <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
-        <Route path="/skybackup" element={<PageTransition><SkyBackup /></PageTransition>} />
         <Route path="/skybackup/auth" element={<PageTransition><SkyBackupAuth /></PageTransition>} />
         <Route path="/skybackup/dashboard" element={<PageTransition><SkyBackupDashboard /></PageTransition>} />
         <Route path="/skybackup/admin" element={<PageTransition><SkyBackupAdmin /></PageTransition>} />
