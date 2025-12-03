@@ -436,11 +436,17 @@ const Services = () => {
               </Card>
             ))}
           </div>
-          <div className="text-center mt-4">
+          <div className="text-center mt-4 space-y-2">
             <p className="text-sm text-muted-foreground">
               Already have an account?{" "}
               <Link to="/skybackup/auth?mode=login" className="text-primary hover:underline">
                 Sign in to your dashboard
+              </Link>
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Admin?{" "}
+              <Link to="/skybackup/auth?mode=login" className="text-primary/70 hover:text-primary hover:underline">
+                Login here
               </Link>
             </p>
           </div>
