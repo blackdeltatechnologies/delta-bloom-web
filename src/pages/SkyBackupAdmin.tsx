@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
@@ -34,6 +35,26 @@ const formatFileSize = (bytes: number) => {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+};
+
+const getPlanStorage = (plan: string) => {
+  const storages: Record<string, number> = {
+    basic: 50 * 1024 * 1024 * 1024, // 50 GB
+    professional: 500 * 1024 * 1024 * 1024, // 500 GB
+    enterprise: 2 * 1024 * 1024 * 1024 * 1024 // 2 TB
+  };
+  return storages[plan] || storages.basic;
+};
+
+const getStoragePercentage = (used: number, plan: string) => {
+  const total = getPlanStorage(plan);
+  return Math.min((used / total) * 100, 100);
+};
+
+const getProgressColor = (percentage: number) => {
+  if (percentage >= 90) return "bg-red-500";
+  if (percentage >= 70) return "bg-yellow-500";
+  return "bg-green-500";
 };
 
 const SkyBackupAdmin = () => {
@@ -276,12 +297,29 @@ const SkyBackupAdmin = () => {
                                 {sub.status}
                               </span>
                             </div>
-                            <p className="text-sm text-muted-foreground">{sub.profiles?.email}</p>
+                          <p className="text-sm text-muted-foreground">{sub.profiles?.email}</p>
                             <p className="text-sm text-muted-foreground">Phone: {sub.profiles?.phone || "N/A"}</p>
                             <div className="flex gap-4 mt-2 text-xs text-muted-foreground">
                               <span className="capitalize">Plan: <strong>{sub.plan}</strong></span>
-                              <span>Storage: <strong>{formatFileSize(sub.storage_used_bytes)}</strong></span>
                               <span>Joined: {new Date(sub.created_at).toLocaleDateString()}</span>
+                            </div>
+                            {/* Storage Usage Progress Bar */}
+                            <div className="mt-3">
+                              <div className="flex justify-between text-xs mb-1">
+                                <span className="text-muted-foreground">Storage Used</span>
+                                <span className="font-medium">
+                                  {formatFileSize(sub.storage_used_bytes)} / {formatFileSize(getPlanStorage(sub.plan))}
+                                </span>
+                              </div>
+                              <div className="relative h-2 w-full overflow-hidden rounded-full bg-secondary">
+                                <div 
+                                  className={`h-full transition-all ${getProgressColor(getStoragePercentage(sub.storage_used_bytes, sub.plan))}`}
+                                  style={{ width: `${getStoragePercentage(sub.storage_used_bytes, sub.plan)}%` }}
+                                />
+                              </div>
+                              <p className="text-xs text-muted-foreground mt-1">
+                                {getStoragePercentage(sub.storage_used_bytes, sub.plan).toFixed(1)}% used
+                              </p>
                             </div>
                           </div>
                           

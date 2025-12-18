@@ -56,6 +56,12 @@ const getPlanStorage = (plan: string) => {
   return storages[plan] || storages.basic;
 };
 
+const getProgressColor = (percentage: number) => {
+  if (percentage >= 90) return "bg-red-500";
+  if (percentage >= 70) return "bg-yellow-500";
+  return "bg-primary";
+};
+
 const SkyBackupDashboard = () => {
   const { user, isApproved, loading, signOut } = useAuth();
   const navigate = useNavigate();
@@ -369,7 +375,27 @@ const SkyBackupDashboard = () => {
                             {formatFileSize(usedStorage)} / {formatFileSize(totalStorage)}
                           </span>
                         </div>
-                        <Progress value={usedPercent} className="h-3" />
+                        <div className="relative h-3 w-full overflow-hidden rounded-full bg-secondary">
+                          <div 
+                            className={`h-full transition-all ${getProgressColor(usedPercent)}`}
+                            style={{ width: `${Math.min(usedPercent, 100)}%` }}
+                          />
+                        </div>
+                        <div className="flex justify-between mt-2">
+                          <span className="text-xs text-muted-foreground">
+                            {usedPercent.toFixed(1)}% used
+                          </span>
+                          {usedPercent >= 90 && (
+                            <span className="text-xs text-red-500 font-medium">
+                              Storage almost full!
+                            </span>
+                          )}
+                          {usedPercent >= 70 && usedPercent < 90 && (
+                            <span className="text-xs text-yellow-500 font-medium">
+                              Consider upgrading
+                            </span>
+                          )}
+                        </div>
                       </div>
                       <div className="pt-4 border-t border-border/50">
                         <p className="text-sm text-muted-foreground mb-2">Plan Details</p>
