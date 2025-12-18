@@ -54,7 +54,15 @@ const getStoragePercentage = (used: number, plan: string) => {
 const getProgressColor = (percentage: number) => {
   if (percentage >= 90) return "bg-red-500";
   if (percentage >= 70) return "bg-yellow-500";
-  return "bg-green-500";
+  return "bg-primary";
+};
+
+const getPlanBadgeColor = (plan: string) => {
+  switch (plan) {
+    case 'enterprise': return 'bg-purple-500/20 text-purple-400 border-purple-500/30';
+    case 'professional': return 'bg-blue-500/20 text-blue-400 border-blue-500/30';
+    default: return 'bg-primary/20 text-primary border-primary/30';
+  }
 };
 
 const SkyBackupAdmin = () => {
@@ -152,7 +160,7 @@ const SkyBackupAdmin = () => {
   if (loading) {
     return (
       <div className="min-h-screen pt-20 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-primary"></div>
+        <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
       </div>
     );
   }
@@ -174,19 +182,25 @@ const SkyBackupAdmin = () => {
   };
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen pt-20 relative">
+      {/* Background */}
+      <div className="absolute inset-0 cyber-grid opacity-20 -z-10" />
+      <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-accent/5 to-transparent -z-10" />
+
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <ScrollReveal direction="up">
           <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
-              <Shield className="w-10 h-10 text-primary" />
+            <div className="flex items-center gap-4">
+              <div className="p-3 rounded-xl bg-accent/20 glow-purple">
+                <Shield className="w-8 h-8 text-accent" />
+              </div>
               <div>
-                <h1 className="text-2xl font-bold">SkyBackup Admin</h1>
-                <p className="text-muted-foreground">Manage users and subscriptions</p>
+                <h1 className="text-2xl font-bold text-gradient-neon">SkyBackup Admin</h1>
+                <p className="text-muted-foreground text-sm">Manage users and subscriptions</p>
               </div>
             </div>
-            <Button variant="outline" onClick={handleLogout}>
+            <Button variant="outline" onClick={handleLogout} className="neon-border-purple hover:bg-accent/10">
               <LogOut className="w-4 h-4 mr-2" />
               Logout
             </Button>
@@ -196,10 +210,10 @@ const SkyBackupAdmin = () => {
         {/* Stats */}
         <StaggerContainer className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
           <StaggerItem>
-            <Card className="bg-card/50 border-border/50">
+            <Card className="bg-card/80 backdrop-blur neon-border">
               <CardContent className="pt-6">
                 <Users className="w-8 h-8 text-primary mb-2" />
-                <p className="text-2xl font-bold">{stats.total}</p>
+                <p className="text-2xl font-bold text-foreground">{stats.total}</p>
                 <p className="text-sm text-muted-foreground">Total Users</p>
               </CardContent>
             </Card>
@@ -207,8 +221,8 @@ const SkyBackupAdmin = () => {
           <StaggerItem>
             <Card className="bg-yellow-500/10 border-yellow-500/30">
               <CardContent className="pt-6">
-                <Clock className="w-8 h-8 text-yellow-500 mb-2" />
-                <p className="text-2xl font-bold">{stats.pending}</p>
+                <Clock className="w-8 h-8 text-yellow-400 mb-2" />
+                <p className="text-2xl font-bold text-foreground">{stats.pending}</p>
                 <p className="text-sm text-muted-foreground">Pending</p>
               </CardContent>
             </Card>
@@ -216,8 +230,8 @@ const SkyBackupAdmin = () => {
           <StaggerItem>
             <Card className="bg-green-500/10 border-green-500/30">
               <CardContent className="pt-6">
-                <CheckCircle className="w-8 h-8 text-green-500 mb-2" />
-                <p className="text-2xl font-bold">{stats.approved}</p>
+                <CheckCircle className="w-8 h-8 text-green-400 mb-2" />
+                <p className="text-2xl font-bold text-foreground">{stats.approved}</p>
                 <p className="text-sm text-muted-foreground">Approved</p>
               </CardContent>
             </Card>
@@ -225,17 +239,17 @@ const SkyBackupAdmin = () => {
           <StaggerItem>
             <Card className="bg-red-500/10 border-red-500/30">
               <CardContent className="pt-6">
-                <XCircle className="w-8 h-8 text-red-500 mb-2" />
-                <p className="text-2xl font-bold">{stats.rejected}</p>
+                <XCircle className="w-8 h-8 text-red-400 mb-2" />
+                <p className="text-2xl font-bold text-foreground">{stats.rejected}</p>
                 <p className="text-sm text-muted-foreground">Rejected</p>
               </CardContent>
             </Card>
           </StaggerItem>
           <StaggerItem>
-            <Card className="bg-card/50 border-border/50">
+            <Card className="bg-card/80 backdrop-blur neon-border-purple">
               <CardContent className="pt-6">
-                <HardDrive className="w-8 h-8 text-primary mb-2" />
-                <p className="text-2xl font-bold">{formatFileSize(stats.totalStorage)}</p>
+                <HardDrive className="w-8 h-8 text-accent mb-2" />
+                <p className="text-2xl font-bold text-foreground">{formatFileSize(stats.totalStorage)}</p>
                 <p className="text-sm text-muted-foreground">Total Storage</p>
               </CardContent>
             </Card>
@@ -244,7 +258,7 @@ const SkyBackupAdmin = () => {
 
         {/* User Management */}
         <ScrollReveal direction="up">
-          <Card className="bg-card/50 border-border/50">
+          <Card className="bg-card/80 backdrop-blur neon-border">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-primary" />

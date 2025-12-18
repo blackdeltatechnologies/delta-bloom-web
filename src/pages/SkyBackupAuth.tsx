@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Cloud, Mail, Lock, User, Phone, ArrowRight } from "lucide-react";
+import { Cloud, Mail, Lock, User, Phone, ArrowRight, Shield, Zap, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -54,6 +54,15 @@ const SkyBackupAuth = () => {
       enterprise: "Enterprise (2 TB)"
     };
     return plans[planKey] || "Basic (50 GB)";
+  };
+
+  const getPlanPrice = (planKey: string) => {
+    const prices: Record<string, string> = {
+      basic: "TZS 15,000/mo",
+      professional: "TZS 45,000/mo",
+      enterprise: "TZS 150,000/mo"
+    };
+    return prices[planKey] || "TZS 15,000/mo";
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -134,99 +143,170 @@ const SkyBackupAuth = () => {
   };
 
   return (
-    <div className="min-h-screen pt-20 flex items-center justify-center px-4">
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-background to-background -z-10" />
-      <div className="absolute inset-0 cyber-grid opacity-20 -z-10" />
+    <div className="min-h-screen pt-20 flex items-center justify-center px-4 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background -z-10" />
+      <div className="absolute inset-0 cyber-grid opacity-30 -z-10" />
+      <div className="absolute top-20 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10" />
+      <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl -z-10" />
 
-      <Card className="w-full max-w-md bg-card/80 backdrop-blur border-border/50">
-        <CardHeader className="text-center">
-          <div className="inline-flex items-center justify-center gap-2 mx-auto mb-4">
-            <Cloud className="w-10 h-10 text-primary" />
-            <span className="text-2xl font-bold text-gradient">SkyBackup</span>
+      <div className="w-full max-w-5xl grid md:grid-cols-2 gap-8 items-center">
+        {/* Left Side - Features */}
+        <div className="hidden md:block space-y-8">
+          <div>
+            <h1 className="text-4xl font-bold mb-4">
+              <span className="text-gradient-neon">SkyBackup</span>
+            </h1>
+            <p className="text-xl text-muted-foreground">
+              Secure cloud storage with military-grade encryption
+            </p>
           </div>
-          <CardTitle>{isLogin ? "Welcome Back" : "Create Account"}</CardTitle>
-          <CardDescription>
-            {isLogin 
-              ? "Sign in to access your backup dashboard" 
-              : `Sign up for ${getPlanLabel(plan)} plan`}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {!isLogin && (
-              <>
-                <div className="space-y-2">
-                  <div className="relative">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                    <Input
-                      placeholder="Full Name"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      className="pl-10"
-                    />
-                  </div>
-                  {errors.fullName && <p className="text-xs text-destructive">{errors.fullName}</p>}
-                </div>
-                <div className="space-y-2">
-                  <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                    <Input
-                      placeholder="Phone Number"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      className="pl-10"
-                    />
-                  </div>
-                  {errors.phone && <p className="text-xs text-destructive">{errors.phone}</p>}
-                </div>
-              </>
-            )}
-            
-            <div className="space-y-2">
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input
-                  type="email"
-                  placeholder="Email Address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10"
-                />
+
+          <div className="space-y-4">
+            <div className="flex items-start gap-4 p-4 rounded-xl neon-border bg-card/50 backdrop-blur">
+              <div className="p-3 rounded-lg bg-primary/20">
+                <Shield className="w-6 h-6 text-primary" />
               </div>
-              {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
+              <div>
+                <h3 className="font-semibold text-foreground">End-to-End Encryption</h3>
+                <p className="text-sm text-muted-foreground">Your files are encrypted before leaving your device</p>
+              </div>
             </div>
 
-            <div className="space-y-2">
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="pl-10"
-                />
+            <div className="flex items-start gap-4 p-4 rounded-xl neon-border-purple bg-card/50 backdrop-blur">
+              <div className="p-3 rounded-lg bg-accent/20">
+                <Zap className="w-6 h-6 text-accent" />
               </div>
-              {errors.password && <p className="text-xs text-destructive">{errors.password}</p>}
+              <div>
+                <h3 className="font-semibold text-foreground">Lightning Fast Sync</h3>
+                <p className="text-sm text-muted-foreground">Access your files instantly from any device</p>
+              </div>
             </div>
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Processing..." : (isLogin ? "Sign In" : "Create Account")}
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </form>
-
-          <div className="mt-6 text-center">
-            <button
-              type="button"
-              onClick={() => setIsLogin(!isLogin)}
-              className="text-sm text-muted-foreground hover:text-primary transition-colors"
-            >
-              {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
-            </button>
+            <div className="flex items-start gap-4 p-4 rounded-xl neon-border bg-card/50 backdrop-blur">
+              <div className="p-3 rounded-lg bg-primary/20">
+                <Database className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground">Automatic Backups</h3>
+                <p className="text-sm text-muted-foreground">Never lose your important files again</p>
+              </div>
+            </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+
+        {/* Right Side - Auth Form */}
+        <Card className="w-full bg-card/80 backdrop-blur neon-border animate-pulse-neon">
+          <CardHeader className="text-center pb-4">
+            <div className="inline-flex items-center justify-center gap-2 mx-auto mb-4">
+              <div className="p-3 rounded-xl bg-primary/20 glow-neon">
+                <Cloud className="w-8 h-8 text-primary animate-glow" />
+              </div>
+            </div>
+            <CardTitle className="text-2xl">{isLogin ? "Welcome Back" : "Create Account"}</CardTitle>
+            <CardDescription>
+              {isLogin 
+                ? "Sign in to access your backup dashboard" 
+                : (
+                  <span>
+                    Sign up for <span className="text-primary font-semibold">{getPlanLabel(plan)}</span>
+                    <br />
+                    <span className="text-accent font-bold">{getPlanPrice(plan)}</span>
+                  </span>
+                )}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {!isLogin && (
+                <>
+                  <div className="space-y-2">
+                    <div className="relative group">
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                      <Input
+                        placeholder="Full Name"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        className="pl-10 bg-secondary/50 border-border/50 focus:border-primary focus:ring-primary/30 transition-all"
+                      />
+                    </div>
+                    {errors.fullName && <p className="text-xs text-destructive">{errors.fullName}</p>}
+                  </div>
+                  <div className="space-y-2">
+                    <div className="relative group">
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                      <Input
+                        placeholder="Phone Number"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        className="pl-10 bg-secondary/50 border-border/50 focus:border-primary focus:ring-primary/30 transition-all"
+                      />
+                    </div>
+                    {errors.phone && <p className="text-xs text-destructive">{errors.phone}</p>}
+                  </div>
+                </>
+              )}
+              
+              <div className="space-y-2">
+                <div className="relative group">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                  <Input
+                    type="email"
+                    placeholder="Email Address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="pl-10 bg-secondary/50 border-border/50 focus:border-primary focus:ring-primary/30 transition-all"
+                  />
+                </div>
+                {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
+              </div>
+
+              <div className="space-y-2">
+                <div className="relative group">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                  <Input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="pl-10 bg-secondary/50 border-border/50 focus:border-primary focus:ring-primary/30 transition-all"
+                  />
+                </div>
+                {errors.password && <p className="text-xs text-destructive">{errors.password}</p>}
+              </div>
+
+              <Button 
+                type="submit" 
+                className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground font-semibold glow transition-all duration-300 hover:glow-lg" 
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <span className="flex items-center gap-2">
+                    <span className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+                    Processing...
+                  </span>
+                ) : (
+                  <>
+                    {isLogin ? "Sign In" : "Create Account"}
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </>
+                )}
+              </Button>
+            </form>
+
+            <div className="mt-6 text-center">
+              <button
+                type="button"
+                onClick={() => setIsLogin(!isLogin)}
+                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                {isLogin ? "Don't have an account? " : "Already have an account? "}
+                <span className="text-primary font-medium">{isLogin ? "Sign up" : "Sign in"}</span>
+              </button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };
