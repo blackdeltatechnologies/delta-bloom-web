@@ -110,6 +110,51 @@ export type Database = {
         }
         Relationships: []
       }
+      tools: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          download_url: string | null
+          external_url: string | null
+          features: string[] | null
+          id: string
+          image_url: string | null
+          is_paid: boolean
+          name: string
+          price: number | null
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description: string
+          download_url?: string | null
+          external_url?: string | null
+          features?: string[] | null
+          id?: string
+          image_url?: string | null
+          is_paid?: boolean
+          name: string
+          price?: number | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          download_url?: string | null
+          external_url?: string | null
+          features?: string[] | null
+          id?: string
+          image_url?: string | null
+          is_paid?: boolean
+          name?: string
+          price?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -128,6 +173,45 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      videos: {
+        Row: {
+          category: string
+          created_at: string
+          description: string | null
+          duration: string | null
+          id: string
+          is_featured: boolean
+          thumbnail_url: string | null
+          title: string
+          updated_at: string
+          video_url: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description?: string | null
+          duration?: string | null
+          id?: string
+          is_featured?: boolean
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string
+          video_url: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          duration?: string | null
+          id?: string
+          is_featured?: boolean
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string
+          video_url?: string
         }
         Relationships: []
       }
