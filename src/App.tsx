@@ -17,6 +17,8 @@ import SkyBackupDashboard from "./pages/SkyBackupDashboard";
 import SkyBackupAdmin from "./pages/SkyBackupAdmin";
 import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
+import Tools from "./pages/Tools";
+import Videos from "./pages/Videos";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +37,8 @@ const AnimatedRoutes = () => {
         <Route path="/skybackup/admin" element={<PageTransition><SkyBackupAdmin /></PageTransition>} />
         <Route path="/portfolio" element={<PageTransition><Portfolio /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+        <Route path="/tools" element={<PageTransition><Tools /></PageTransition>} />
+        <Route path="/videos" element={<PageTransition><Videos /></PageTransition>} />
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { 
   Shield, Users, HardDrive, CheckCircle, XCircle, Clock, 
-  Search, LogOut, FileText, TrendingUp
+  Search, LogOut, FileText, TrendingUp, Wrench, Video
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +13,8 @@ import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/Scroll
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
+import ToolsManager from "@/components/admin/ToolsManager";
+import VideosManager from "@/components/admin/VideosManager";
 
 interface UserSubscription {
   id: string;
@@ -73,6 +75,7 @@ const SkyBackupAdmin = () => {
   const [subscriptions, setSubscriptions] = useState<UserSubscription[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("pending");
+  const [adminSection, setAdminSection] = useState<"users" | "tools" | "videos">("users");
 
   useEffect(() => {
     if (!loading && (!user || !isAdmin)) {
@@ -207,20 +210,67 @@ const SkyBackupAdmin = () => {
           </div>
         </ScrollReveal>
 
-        {/* Stats */}
-        <StaggerContainer className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-          <StaggerItem>
-            <Card className="bg-card/80 backdrop-blur neon-border">
-              <CardContent className="pt-6">
-                <Users className="w-8 h-8 text-primary mb-2" />
-                <p className="text-2xl font-bold text-foreground">{stats.total}</p>
-                <p className="text-sm text-muted-foreground">Total Users</p>
-              </CardContent>
-            </Card>
-          </StaggerItem>
-          <StaggerItem>
-            <Card className="bg-yellow-500/10 border-yellow-500/30">
-              <CardContent className="pt-6">
+        {/* Admin Section Tabs */}
+        <ScrollReveal direction="up" delay={0.1}>
+          <div className="flex gap-2 mb-8">
+            <Button
+              variant={adminSection === "users" ? "default" : "outline"}
+              onClick={() => setAdminSection("users")}
+              className={adminSection === "users" ? "neon-glow" : "neon-border"}
+            >
+              <Users className="w-4 h-4 mr-2" />
+              Users
+            </Button>
+            <Button
+              variant={adminSection === "tools" ? "default" : "outline"}
+              onClick={() => setAdminSection("tools")}
+              className={adminSection === "tools" ? "neon-glow" : "neon-border"}
+            >
+              <Wrench className="w-4 h-4 mr-2" />
+              Tools
+            </Button>
+            <Button
+              variant={adminSection === "videos" ? "default" : "outline"}
+              onClick={() => setAdminSection("videos")}
+              className={adminSection === "videos" ? "bg-accent hover:bg-accent/80" : "neon-border-purple"}
+            >
+              <Video className="w-4 h-4 mr-2" />
+              Videos
+            </Button>
+          </div>
+        </ScrollReveal>
+
+        {/* Tools Section */}
+        {adminSection === "tools" && (
+          <ScrollReveal direction="up">
+            <ToolsManager />
+          </ScrollReveal>
+        )}
+
+        {/* Videos Section */}
+        {adminSection === "videos" && (
+          <ScrollReveal direction="up">
+            <VideosManager />
+          </ScrollReveal>
+        )}
+
+        {/* Users Section */}
+        {adminSection === "users" && (
+          <>
+            {/* Stats */}
+            <StaggerContainer className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+              <StaggerItem>
+                <Card className="bg-card/80 backdrop-blur neon-border">
+                  <CardContent className="pt-6">
+                    <Users className="w-8 h-8 text-primary mb-2" />
+                    <p className="text-2xl font-bold text-foreground">{stats.total}</p>
+                    <p className="text-sm text-muted-foreground">Total Users</p>
+                  </CardContent>
+                </Card>
+              </StaggerItem>
+              <StaggerItem>
+                <Card className="bg-yellow-500/10 border-yellow-500/30">
+                  <CardContent className="pt-6">
                 <Clock className="w-8 h-8 text-yellow-400 mb-2" />
                 <p className="text-2xl font-bold text-foreground">{stats.pending}</p>
                 <p className="text-sm text-muted-foreground">Pending</p>
@@ -387,7 +437,9 @@ const SkyBackupAdmin = () => {
               </Tabs>
             </CardContent>
           </Card>
-        </ScrollReveal>
+            </ScrollReveal>
+          </>
+        )}
       </div>
     </div>
   );
